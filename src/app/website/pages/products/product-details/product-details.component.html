@@ -1,0 +1,287 @@
+<!-- START MAIN CONTENT -->
+<div class="main_content">
+
+    <!-- START SECTION SHOP -->
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
+                  <div class="product-image vertical_gallery">
+                        
+                        <div class="product_img_box">
+                            <img id="product_img" [src]="product.product_img" style="height: 300px;width: 180px;"  alt="product_img1" />
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="pr_detail">
+                        <div class="product_description">
+                            <h4 class="product_title"><a href="#">{{product.name}}</a></h4>
+                          
+                            
+                            
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="product_price">
+                                        <span class="price">{{product.new_price|currency}}</span>
+                                        <del>{{product.old_price|currency}}</del>
+                                        <div class="on_sale" *ngIf="product.discount_percent !=0">
+                                            <span>{{product.discount_percent}}% Off</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-4">
+                                    <div class="rating_wrap"*ngIf="product.reviews_count !=0">
+                                        <div class="rating">
+                                            <div class="product_rate" style="width:{{product.max_rate*20 }}%"></div>
+                                        </div>
+                                        <span class="rating_num">({{product.reviews_count}})</span>
+                                </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <p>{{product.desc.substring(0,200)}}</p>
+                            </div>
+                            
+                           
+
+                            
+                         
+                        </div>
+                        <hr />
+                        <div class="cart_extra">
+                            <div class="cart-product-quantity">
+                                <div class="quantity">
+                                    <input type="button" value="-"(click)="decrease()" class="minus">
+                                    <input type="text" name="quantity" [value]="plus" title="Qty" class="qty" size="4">
+                                    <input type="button" value="+" (click)="increase()" class="plus">
+                                </div>
+                            </div>
+                            <div class="cart_btn">
+                                <button (click)="addToCart(product.id)" class="btn btn-fill-out btn-addtocart" type="button"><i class="icon-basket-loaded"></i> Add to cart</button>
+                                <!-- <a class="add_compare" href="#"><i class="icon-shuffle"></i></a>
+                                <a class="add_wishlist" href="#"><i class="icon-heart"></i></a> -->
+                            </div>
+                        </div>
+                        <hr />
+                        <ul class="product-meta">
+                            <li>Category: <a >{{product.category}}</a></li>
+                        </ul>
+                        
+                        <div class="product_share">
+                            
+                          <share-buttons class="social_icons" theme="modern-dark"
+                          [include]="['copy', 'facebook', 'email', 'messenger', 'linkedin', 'telegram', 'twitter', 'whatsapp']"
+                          [showIcon]="true"
+                          [showText]="true"
+                          url="[routerLink]=''"
+                          description="Elgwile - {{product.name}}"
+                          twitterAccount="rodrigokamada"
+                          class="pt-5">
+                          
+                        </share-buttons>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="large_divider clearfix"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="tab-style3">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="Description-tab" data-bs-toggle="tab" href="#Description" role="tab" aria-controls="Description" aria-selected="true">Description</a>
+                              </li>
+                             
+                              <li class="nav-item">
+                                <a class="nav-link" id="Reviews-tab" data-bs-toggle="tab" href="#Reviews" role="tab" aria-controls="Reviews" aria-selected="false">Reviews ({{product.reviews_count}})</a>
+                              </li>
+                        </ul>
+                        <div class="tab-content shop_info_tab">
+                              <div class="tab-pane fade show active" id="Description" role="tabpanel" aria-labelledby="Description-tab">
+                                    <p>{{product.desc}}</p>
+                                </div>
+                          
+                              <div class="tab-pane fade" id="Reviews" role="tabpanel" aria-labelledby="Reviews-tab">
+                                <div class="review_form field_form">
+                                    <h5>Add a review</h5>
+                                    <br>                               
+                                    <button data-bs-toggle="modal" data-bs-target="#makeReivew" type="button" class="btn btn-fill-out"  value="Submit">Make Review</button>
+                                    <br>
+
+                                    
+                                </div>
+                                
+                                <div class="comments">
+                                    <ul class="list_none comment_list mt-4">
+                                        <li *ngFor="let review of product.reviews">
+                                            <div class="comment_img">
+                                                <img style="max-width: 70px;" src="assets/man.png" alt="user1"/>
+                                            </div>
+                                            <div class="comment_block">
+                                                <div class="rating_wrap">
+                                                    <div class="rating">
+                                                        <div class="product_rate" style="width:{{review.rate*20}}%"></div>
+                                                    </div>
+                                                </div>
+                                                <p class="customer_meta">
+                                                    <span class="review_author">{{review.user.first_name +" "+review.user.last_name}}</span>
+                                                    <span class="comment-date">{{review.created_at}}</span>
+                                                </p>
+                                                <div class="description">
+                                                    <p>{{review.review}}</p>
+                                                </div>
+
+                                            </div>
+                                            <div class="row  justify-content-lg-end"*ngIf="review.user.id == userId">
+                                                <div  class="col-md-1 d-flex">
+                                                    <a (click)="deleteReview(review.id)" class="btn btn-danger btn-sm" ><i class="fas fa-trash"></i></a>
+                                                </div>
+                                                <br><br>
+                                                <div class="col-md-1 d-flex">
+                                                    <button (click)="editReview(review.id)" type="button"data-bs-toggle="modal" data-bs-target="#editReivew"  class="btn btn-secondary btn-sm text-white" ><i class="fas fa-pen-alt"></i></button>
+                                                </div>
+                                            </div>
+
+
+                                        </li>
+                                      
+                                    </ul>
+
+
+
+
+
+                                </div>
+                               
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         
+          
+        </div>
+
+
+
+
+
+    </div>
+    <!-- END SECTION SHOP -->
+    
+
+  
+                            <!-- Add Rivew -->
+
+                            <div class="modal fade" id="makeReivew" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Make Review</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                    
+                                        <form [formGroup]="reviewForm"(ngSubmit)="postReview()" class="row mt-3">
+                                            <div class="form-group col-12 mb-3">
+                                                <div class="star_rating">
+                                                    
+
+                                                    <ng-container *ngFor="let i of stars">
+                                                    
+                                                    
+
+                                                    <span (mouseover)="setRating(i)" ><i  [ngClass]="starClicked>0 &&starClicked>=i ? 'fas fa-star':'far fa-star'"></i></span>
+                                                    
+                                                    </ng-container>
+                                                    
+                                                </div>
+                                            </div>
+                                            <input formControlName="rate"name="rate" [(ngModel)]="starClicked" type="hidden">
+
+                                            <div class="form-group col-12 mb-3">
+                                                <textarea formControlName="review" placeholder="Your review *" class="form-control" name="message" rows="4"></textarea>
+                                            </div>
+                                            
+                                        
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button  type="submit" class="btn btn-fill-out" name="submit" value="Submit">Submit Review</button>
+                                    
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                    
+                                </div>
+                                </div>
+                            </div>
+
+                            <!-- end Add Rivew modal-->
+
+
+                            <!-- edit Rivew -->
+                                                            
+                            <div class="modal fade" id="editReivew" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Review</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                    
+                                        <form [formGroup]="editReviewForm"(ngSubmit)="updateReview()" class="row mt-3">
+                                            <div class="form-group col-12 mb-3">
+                                                <div class="star_rating">
+                                                    
+
+                                                <ng-container *ngFor="let i of stars">
+                                                    
+                                                    
+
+                                                    <span (mouseover)="setRating(i)" ><i  [ngClass]="starClicked>0 &&starClicked>=i ? 'fas fa-star':'far fa-star'"></i></span>
+                                                    
+                                                </ng-container>
+                                                
+                                                </div>
+                                            </div>
+                                            <input formControlName="rate"name="rate" [(ngModel)]="starClicked" type="hidden">
+
+                                            <div class="form-group col-12 mb-3">
+                                                <textarea formControlName="review" placeholder="Your review *" class="form-control" name="message" rows="4"></textarea>
+                                            </div>
+                                        
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Update</button>
+                                            </div>
+                                            
+                                        </form>
+
+                                    </div>
+                                    
+                                </div>
+                                </div>
+                            </div>
+
+                            <!-- end edit Rivew modal-->
+    
+
+
+</div>
+    <!-- END MAIN CONTENT -->
+
+
+

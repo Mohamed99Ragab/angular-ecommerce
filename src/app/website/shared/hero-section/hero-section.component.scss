@@ -1,0 +1,51 @@
+
+.banner_section
+{
+    background-image:linear-gradient(rgba(3, 14, 25, 0.444),rgba(3, 14, 25, 0.444),rgba(3, 14, 25, 0.444),0.7) ;
+    
+    width: 100%;
+    z-index: 99;
+}
+
+.banner-desc
+{
+    position: relative;
+    color: white;
+    z-index: 999999999999999999;
+}
+
+.img-banner{
+
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+}
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 700px) {
+
+    .custom-carousel-img
+    {
+
+        height: 45vh;
+        width: 100%;
+    }
+
+    .shop-now-hero
+    {
+        margin-top: 30px;
+    }
+    
+    .banner_content h2
+    {
+        margin-bottom: 40px;
+    }
+}

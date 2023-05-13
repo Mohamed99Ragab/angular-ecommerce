@@ -1,0 +1,97 @@
+<!-- START HEADER -->
+<header class="header_wrap fixed-top header_with_topbar">
+	<div class="top-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                	<div class="d-flex align-items-center justify-content-center justify-content-md-start">
+                        
+                        <ul class="contact_detail text-center text-lg-start">
+                            <li><i class="ti-mobile"></i><span>+201017309597</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                	<div class="text-center text-md-end">
+                       	<ul class="header_list">
+                            <!-- <li><a routerLink="/wishlist"><i class="ti-heart"></i><span>Wishlist</span></a></li> -->
+
+                            <li *ngIf="!this._AuthService.getToken()"><a routerLink="/auth/login"><i class="ti-user"></i><span>Login</span></a></li>
+						</ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom_header dark_skin main_menu_uppercase">
+    	<div class="container">
+            <nav class="navbar navbar-expand-lg"> 
+                <a class="navbar-brand" routerLink="/home">
+
+                    <h3>Elgwile</h3>
+                    <!-- <img class="logo_light" src="assets/images/logo_light.png" alt="logo" /> -->
+                    <!-- <img class="logo_dark" src="assets/images/logo_dark.png" alt="logo" /> -->
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-expanded="false"> 
+                    <span class="ion-android-menu"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li class="dropdown">
+                            <a data-bs-toggle="dropdown" class="nav-link" routerLink="/home">Home</a>
+                           
+                        </li>
+                        <li><a class="nav-link nav_item" routerLink="/store">Store</a></li> 
+                        <li><a class="nav-link nav_item" routerLink="/about">About</a></li> 
+
+                        <li class="dropdown">
+                            <a class="dropdown-toggle nav-link active" href="#" data-bs-toggle="dropdown">Account</a>
+                            <div class="dropdown-menu">
+                                <ul> 
+                                    <li *ngIf="!this._AuthService.getToken()"><a class="dropdown-item nav-link nav_item active" routerLink="/auth/login">login</a></li> 
+                                    <li *ngIf="!this._AuthService.getToken()"><a class="dropdown-item nav-link nav_item" routerLink="/auth/register">register</a></li> 
+                                    <li *ngIf="this._AuthService.getToken()"><a class="dropdown-item nav-link nav_item" routerLink="/auth/profile">profile</a></li>
+                                    <li *ngIf="this._AuthService.getToken()"><a style="cursor: pointer;" class="dropdown-item nav-link nav_item" (click)="logout()">logout</a></li>
+                                   
+                                </ul>
+                            </div>
+                        </li>
+                        <li><a class="nav-link nav_item" routerLink="/contacts">Contact Us</a></li> 
+                    </ul>
+                </div>
+                <ul class="navbar-nav attr-nav align-items-center">
+                
+                    <li class="dropdown cart_dropdown"><a class="nav-link cart_trigger" href="#" data-bs-toggle="dropdown"><i class="linearicons-cart"></i><span class="cart_count">{{cartCount}}</span></a>
+                        <div class="cart_box dropdown-menu dropdown-menu-right">
+                            <ul class="cart_list">
+                               <ng-container *ngIf="cartCount >0">
+                                <li *ngFor="let item of cart">
+                                    <a (click)="deleteItemCart(item.id)" class="item_remove"><i class="ion-close"></i></a>
+                                    <a href="#"><img [src]="item.product_img" alt="cart_thumb1">{{item.product_name}}</a>
+                                    <span class="cart_quantity"> {{item.quantity}} x <span class="cart_amount"> </span>{{item.price|currency}}</span>
+                                </li>
+                               
+                               </ng-container>
+                            </ul>
+                            <div class="cart_footer">
+                                <p class="cart_total"><strong>Subtotal:</strong> <span class="cart_price"> </span>{{cartTotal|currency}}</p>
+                                <p class="cart_buttons"><a routerLink="/cart" class="btn btn-fill-line view-cart">View Cart</a><a routerLink="/checkout" class="btn btn-fill-out checkout">Checkout</a></p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+<!-- END HEADER -->
+
+<!-- LOADER -->
+<!-- <div class="preloader">
+    <div class="lds-ellipsis">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div> -->
+<!-- END LOADER -->

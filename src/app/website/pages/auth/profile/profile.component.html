@@ -1,0 +1,192 @@
+<!-- START SECTION BREADCRUMB -->
+<div class="breadcrumb_section bg_gray page-title-mini">
+    <div class="container"><!-- STRART CONTAINER -->
+        <div class="row align-items-center">
+        	<div class="col-md-6">
+                <div class="page-title">
+            		<h1>My Account</h1>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <ol class="breadcrumb justify-content-md-end">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                    <li class="breadcrumb-item active">My Account</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- END CONTAINER-->
+</div>
+<!-- END SECTION BREADCRUMB -->
+
+<!-- START MAIN CONTENT -->
+<div class="main_content">
+
+<!-- START SECTION SHOP -->
+<div class="section">
+	<div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                <div class="dashboard_menu">
+                    <ul class="nav nav-tabs flex-column" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false"><i class="ti-layout-grid2"></i>Dashboard</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="orders-tab" data-bs-toggle="tab" href="#orders" role="tab" aria-controls="orders" aria-selected="false"><i class="ti-shopping-cart-full"></i>Orders</a>
+                      </li>
+                    
+                      <li class="nav-item">
+                        <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="ti-id-badge"></i>Account details</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link"style="cursor: pointer;" (click)="logout()"><i class="ti-lock"></i>Logout</a>
+                      </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-8">
+                <div class="tab-content dashboard_content">
+                  	<div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                    	<div class="card">
+                        	<div class="card-header">
+                                <h3>Dashboard</h3>
+                            </div>
+                            <div class="card-body">
+                    			<p>From your account dashboard. you can easily check &amp; view your <a href="javascript:void(0);" onclick="$('#orders-tab').trigger('click')">recent orders</a>, manage your <a href="javascript:void(0);" onclick="$('#address-tab').trigger('click')">shipping and billing addresses</a> and <a href="javascript:void(0);" onclick="$('#account-detail-tab').trigger('click')">edit your password and account details.</a></p>
+                            </div>
+                        </div>
+                  	</div>
+                  	<div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                    	<div class="card">
+                        	<div class="card-header">
+                                <h3>Orders</h3>
+                                
+                               
+
+                            </div>
+                            <div class="card-body">
+                    			<div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Order</th>
+                                                <th>Phone</th>
+                                                <th>Address</th>
+                                                <th>Status</th>
+                                                <th>Payment Status</th>
+                                                <th>Date</th>
+                                                <th>Total</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let order of orders">
+                                                <td>{{order.order_num}}</td>
+                                                <td>{{order.phone}}</td>
+                                                <td>{{order.address}}</td>
+                                                <td >
+                                                    {{order.status}}
+                                                </td>
+                                                <td>{{order.payment_status}}</td>
+                                                <td>{{order.created_at}}</td>
+                                                <td>{{order.total}}</td>
+                                                <td><button data-bs-toggle="modal" data-bs-target="#productDetails" (click)="getPoductDetails(order.id)"  class="btn btn-fill-out btn-sm b">View</button></td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                  	</div>
+					
+                    <div class="tab-pane fade" id="account-detail" role="tabpanel" aria-labelledby="account-detail-tab">
+						<div class="card">
+                        	<div class="card-header">
+                                <h3>Account Details</h3>
+                            </div>
+                            <div class="card-body">
+                                <form [formGroup]="updateForm"(ngSubmit)="saveData()">
+                                    <div class="row">
+                                        <div class="form-group col-md-6 mb-3">
+                                        	<label>First Name <span class="required">*</span></label>
+                                            <input required="" formControlName="first_name" class="form-control" name="name" type="text">
+                                         </div>
+                                         <div class="form-group col-md-6 mb-3">
+                                        	<label>Last Name <span class="required">*</span></label>
+                                            <input required=""formControlName="last_name" class="form-control" name="phone">
+                                        </div>
+                                        
+                                        <div class="form-group col-md-12 mb-3">
+                                        	<label>Email Address <span class="required">*</span></label>
+                                            <input required="" formControlName="email" class="form-control" name="email" type="email">
+                                        </div>
+                                        <div class="form-group col-md-12 mb-3">
+                                        	<label>New Password <span class="required">*</span></label>
+                                            <input required=""formControlName="password" class="form-control" name="password" type="password">
+                                        </div>
+                                       
+                                        <div class="form-group col-md-12 mb-3">
+                                        	<label>Confirm Password <span class="required">*</span></label>
+                                            <input required=""formControlName="password_confirmation" class="form-control" name="cpassword" type="password">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-fill-out" name="submit" value="Submit">Save</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- END SECTION SHOP -->
+
+
+</div>
+<!-- END MAIN CONTENT -->
+
+
+<!-- product details modal -->
+
+<!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="productDetails" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+
+            <div class="row">
+                <div *ngFor="let item of orderDetails" class="col-md-4 text-center">
+                    <div class="card" style="width: 18rem;">
+                        <img   [src]="item.product_img" class="card-img w-25 mx-auto my-2" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title">{{item.product_name}}</h5>
+                          <p class="card-text">{{item.price|currency}}  x {{item.quantity}}</p>
+                        </div>
+                      </div>
+                </div>
+
+                
+            </div>
+
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

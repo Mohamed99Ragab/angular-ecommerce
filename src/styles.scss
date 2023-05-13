@@ -1,1 +1,118 @@
 /* You can add global styles to this file, and also import other style files */
+
+a{
+    cursor: pointer;
+}
+
+.add-to-cart a:hover
+{
+    color: white !important;
+    
+}
+
+.cat_slider .owl-next ,.cat_slider .owl-prev
+{
+    background-color: whitesmoke !important;
+    color: black !important;
+    padding: 25px;
+    border-radius: 50% !important;
+
+    position: absolute;
+    top:50%;
+    transition: all ease;
+
+
+   
+
+}
+
+.cat_slider .owl-next:hover ,.cat_slider .owl-prev:hover
+{
+    background-color: red !important;
+    color: white !important;
+
+}
+
+.cat_slider .owl-prev 
+{
+
+    left: -75px;
+
+    transform: translate(-50%,-50%);
+
+}
+
+.cat_slider .owl-next 
+{
+    right: -10px;
+    transform: translate(-50%,-50%);
+
+}
+
+
+
+
+.product_slider .owl-next ,.product_slider .owl-prev
+{
+    background-color: whitesmoke !important;
+    color: black !important;
+    padding: 25px;
+    border-radius: 50% !important;
+
+    position: absolute;
+    top:40%;
+    transition: all ease;
+
+}
+
+.product_slider .owl-next:hover ,.product_slider .owl-prev:hover
+{
+    background-color: red !important;
+    color: white !important;
+
+}
+
+.product_slider .owl-prev 
+{
+
+    left: -50px;
+
+    transform: translate(-50%,-50%);
+
+}
+
+.product_slider .owl-next 
+{
+    right: -90px;
+    transform: translate(-50%,-50%);
+
+}
+
+
+
+
+$small:700px;
+    @media screen and (max-width: $small) {
+
+        .cat_slider .owl-next , .cat_slider .owl-prev
+        {
+            
+            display: none !important;
+
+        }
+
+       
+
+            .product_slider .owl-next ,.product_slider .owl-prev
+            {
+              
+
+               
+                display: none !important;
+
+            }
+        
+    }
+
+
+

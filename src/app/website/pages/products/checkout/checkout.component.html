@@ -1,0 +1,137 @@
+
+
+<!-- START SECTION BREADCRUMB -->
+<div class="breadcrumb_section bg_gray page-title-mini">
+    <div class="container"><!-- STRART CONTAINER -->
+        <div class="row align-items-center">
+        	<div class="col-md-6">
+                <div class="page-title">
+            		<h1>Checkout</h1>
+                </div>
+            </div>
+            
+        </div>
+    </div><!-- END CONTAINER-->
+</div>
+<!-- END SECTION BREADCRUMB -->
+
+<!-- START MAIN CONTENT -->
+<div class="main_content">
+
+<!-- START SECTION SHOP -->
+<div class="section">
+	<div class="container">
+      
+        <div class="row">
+            <div class="col-12">
+            	<div class="medium_divider"></div>
+            	<div class="divider center_icon"><i class="linearicons-credit-card"></i></div>
+            	<div class="medium_divider"></div>
+            </div>
+        </div>
+        <form [formGroup]="billingForm" (ngSubmit)="makeOrder()">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="heading_s1">
+                        <h4>Billing Details</h4>
+                    </div>
+                    
+                    
+                    
+                        <div class="form-group mb-3">
+                            <input type="text"formControlName="address" class="form-control" name="billing_address" required="" placeholder="Address *">
+                        </div>
+
+                
+                        <div class="form-group mb-3">
+                            <input class="form-control" formControlName="phone" type="text" name="phone" placeholder="Phone *">
+                        </div>
+                    
+                </div>
+                <div class="col-md-6">
+                    <div class="order_review">
+                        <div class="heading_s1">
+                            <h4>Your Orders</h4>
+                        </div>
+                        <div class="table-responsive order_table">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of cartProducts">
+                                        <td>{{item.product_name}} <span class="product-qty">x {{item.quantity}}</span></td>
+                                        <td>{{item.price * item.quantity |currency}}</td>
+                                    </tr>
+                                
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>SubTotal</th>
+                                        <td class="product-subtotal">{{cartTotal|currency}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Shipping</th>
+                                        <td>Free Shipping</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Total</th>
+                                        <td class="product-subtotal">{{cartTotal|currency}}</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="payment_method">
+                            <div class="heading_s1">
+                                <h4>Payment</h4>
+                            </div>
+                            <div class="payment_option" >
+
+                                <select [hidden]="billingForm.invalid" (change)="change($event)" class="form-select" formControlName="paymentMethod" name="paymentOptins">
+                                    <option disabled selected value=""> select pay method</option>
+                                    <option selected  value="Paypal">PayPal</option>
+                                    <option value="Cache">Cache On delivery</option>
+                                </select>
+                                    <br><br>
+                                <div>
+                                    <ngx-paypal *ngIf="paymentsOptions=='Paypal' && billingForm.valid" [config]="payPalConfig"></ngx-paypal>
+                                </div>
+
+                                <div>
+                                    <a (click)="makeOrder()" *ngIf="paymentsOptions=='Cache' && billingForm.valid"   class="btn btn-fill-out btn-block">Place Order</a>
+                                </div>
+
+                             
+                                <!-- <select name="paymentMedthods"(change)="change()"  class="form-select" [(ngModel)]="paymentMethod">
+                                    <option selected value="Paypal">Paypal</option>
+                                    <option value="Cash">Cash on delivery</option>
+                                    <option value="Bank">Bank transfer</option>
+                                </select>
+                                <div *ngIf="paymentMethod=='Paypal'"class="ms-4 mt-2">
+                                    <p >Pay via PayPal; you can pay with your credit card if you don't have a PayPal account.</p>
+                                </div>
+
+                                <div *ngIf="paymentMethod=='Cash'"class="ms-4 mt-2">
+                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration. </p>
+                                </div> -->
+                            
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<!-- END SECTION SHOP -->
+
+
+
+</div>
+<!-- END MAIN CONTENT -->
+
